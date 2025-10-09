@@ -2,7 +2,7 @@ import streamlit as st
 import datetime
 import time
 from datetime import date
-
+from streamlit_gsheets import GSheetsConnection
 
 # --- PAGE CONFIG ---
 st.set_page_config(page_title="Money Tracker", layout="wide")
@@ -24,7 +24,7 @@ st.markdown("""
     }
 
     .text {
-        font-size: 5em;
+        font-size: 6em;
         letter-spacing: 10px;
         font-family: 'Blippo', fantasy;
         border-right: 5px solid;
@@ -57,6 +57,7 @@ st.markdown("""
         50% { background-position: 100% 0; }
         100% { background-position: 0 100%; }
     }
+    
     </style>
 """, unsafe_allow_html=True)
 
@@ -75,6 +76,8 @@ clock_placeholder = st.empty()
 st.write("---")
 
 # --- INPUTS ---
+st.write("" \
+"")
 date_select = st.date_input("Select your date", format = "DD/MM/YYYY")
 income = st.number_input("Enter your total income", min_value=0.0, step=100.0)
 expense = st.number_input("Enter your total expenses", min_value=0.0, step=100.0)
@@ -87,10 +90,20 @@ if st.button("Calculate"):
         st.success(f"✅ Your remaining balance is: **${balance:,.2f}**")
     else:
         st.error(f"❌ Your remaining balance is: **${balance:,.2f}**")
+st.write("")
+st.write("---")
+
+# --- GG SHEET ---
+url = "https://docs.google.com/spreadsheets/d/1r-Bk-wYsJV3WePfOC5XSTqFeeyOwnybpqVWupEBRvHA/edit?usp=sharing"
+
+sheet_connection = st.connection("gsheets", type=GSheetsConnection)
+data = sheet_connection.read(spreadsheet=url, usecols=[0, 1, 2])
+st.dataframe(data)
 
 # --- LIVE CLOCK ---
 while True:
     current_time = datetime.datetime.now().strftime("%H:%M:%S")
-    clock_placeholder.markdown(f"### ⏱️ Current time: {current_time}")
+    current_date = datetime.datetime.now().strftime("%D")
+    clock_placeholder.markdown(f"### 🗓️ Current date: {current_date} | ⏱️ Current time: {current_time} ")
     # --- รีทุกๆ 1 วิ ---
     time.sleep(1)
