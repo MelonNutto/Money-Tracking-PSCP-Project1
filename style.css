@@ -1,0 +1,47 @@
+body {
+    background: #262239;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: white;
+    text-align: center;
+}
+
+.container {
+    display: inline-block;
+}
+
+.text {
+    font-size: 5em;
+    letter-spacing: 10px;
+    font-family: monospace;
+    border-right: 5px solid;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    animation:
+        typing 2.5s steps(20, end),
+        cursor .6s step-end infinite alternate,
+        animate 5s linear infinite;
+    color: transparent;
+    background-image: linear-gradient(to left, #2ecc71, #3498db, #9b59b6, #f39c12);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-background-size: 500%;
+    background-size: 500%;
+}
+
+@keyframes cursor {
+    50% { border-color: transparent; }
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+@keyframes animate {
+    0% { background-position: 0 100%; }
+    50% { background-position: 100% 0%; }
+    100% { background-position: 0 100%; }
+}
