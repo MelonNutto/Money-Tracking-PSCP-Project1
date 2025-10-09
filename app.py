@@ -34,7 +34,7 @@ st.markdown("""
             cursor .6s step-end infinite alternate,
             gradient 5s linear infinite;
         color: transparent;
-        background-image: linear-gradient(to left, #2ecc71, #3498db, #9b59b6, #f39c12);
+        background-image: linear-gradient(to left, 	#7289da, #3498db, #b9b9b9);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-background-size: 500%;
@@ -80,7 +80,10 @@ expense = st.number_input("Enter your total expenses", min_value=0.0, step=100.0
 st.write("")
 if st.button("Calculate"):
     balance = income - expense
-    st.success(f"✅ Your remaining balance is: **${balance:,.2f}**")
+    if balance > 0:
+        st.success(f"✅ Your remaining balance is: **${balance:,.2f}**")
+    else:
+        st.error(f"❌ Your remaining balance is: **${balance:,.2f}**")
 
 # --- LIVE CLOCK ---
 while True:
