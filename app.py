@@ -1,6 +1,8 @@
 import streamlit as st
 import datetime
 import time
+from datetime import date
+
 
 # --- PAGE CONFIG ---
 st.set_page_config(page_title="Money Tracker", layout="wide")
@@ -9,7 +11,7 @@ st.set_page_config(page_title="Money Tracker", layout="wide")
 st.markdown("""
     <style>
     body {
-        background: #262239;
+        background: #0e1117;
         margin: 0;
         padding: 0;
         color: white;
@@ -34,7 +36,7 @@ st.markdown("""
             cursor .6s step-end infinite alternate,
             gradient 5s linear infinite;
         color: transparent;
-        background-image: linear-gradient(to left, #2ecc71, #3498db, #9b59b6, #f39c12);
+        background-image: linear-gradient(to left, 	#7289da, #3498db, #b9b9b9);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-background-size: 500%;
@@ -73,6 +75,7 @@ clock_placeholder = st.empty()
 st.write("---")
 
 # --- INPUTS ---
+date_select = st.date_input("Select your date", format = "DD/MM/YYYY")
 income = st.number_input("Enter your total income", min_value=0.0, step=100.0)
 expense = st.number_input("Enter your total expenses", min_value=0.0, step=100.0)
 
@@ -80,7 +83,10 @@ expense = st.number_input("Enter your total expenses", min_value=0.0, step=100.0
 st.write("")
 if st.button("Calculate"):
     balance = income - expense
-    st.success(f"✅ Your remaining balance is: **${balance:,.2f}**")
+    if balance > 0:
+        st.success(f"✅ Your remaining balance is: **${balance:,.2f}**")
+    else:
+        st.error(f"❌ Your remaining balance is: **${balance:,.2f}**")
 
 # --- LIVE CLOCK ---
 while True:

@@ -24,12 +24,12 @@ body {
         cursor .6s step-end infinite alternate,
         animate 5s linear infinite;
     color: transparent;
-    background-image: linear-gradient(to left, #2ecc71, #3498db, #9b59b6, #f39c12);
+    background-image: linear-gradient(to left, 	#7289da, #3498db, #b9b9b9);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-background-size: 500%;
     background-size: 500%;
-}
+}s
 
 @keyframes cursor {
     50% { border-color: transparent; }
