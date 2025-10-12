@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Login Example</title>
+    <!-- Load Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+    <h2>Login with Google</h2>
+
+    <!-- Google Sign-In button -->
+    <div id="g_id_onload"
+         data-client_id="1077781080123-eo31kh01rlbfv96uddmcdkjqmr8n4a37.apps.googleusercontent.com"
+         data-callback="handleCredentialResponse"
+         data-auto_prompt="false">
+    </div>
+
+    <div class="g_id_signin" 
+         data-type="standard" 
+         data-size="large">
+    </div>
+
+    <script>
+        // This function is called after successful login
+        function handleCredentialResponse(response) {
+            console.log("Encoded JWT ID token: " + response.credential);
+
+            // Decode the JWT if needed, or send it to your server
+            // For demonstration, we can decode the base64 payload
+            const base64Url = response.credential.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+            
+            const userObject = JSON.parse(jsonPayload);
+            console.log(userObject); // contains user info like name, email, picture
+
+            // Example: show user info on page
+            document.body.innerHTML += `<p>Hello, ${userObject.name}</p>`;
+        }
+    </script>
+</body>
+</html>
