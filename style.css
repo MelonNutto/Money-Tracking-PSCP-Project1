@@ -1,6 +1,5 @@
 body {
-    background: #262239;
-    font-family: 'Poppins', sans-serif;
+    background: #0e1117;
     margin: 0;
     padding: 0;
     color: white;
@@ -9,30 +8,27 @@ body {
 
 .container {
     display: inline-block;
+    margin-top: 40px;
 }
 
 .text {
-    font-size: 5em;
+    font-size: 6em;
     letter-spacing: 10px;
-    font-family: monospace;
+    font-family: 'Blippo', fantasy;
     border-right: 5px solid;
-    width: 100%;
+    width: 0;
     white-space: nowrap;
     overflow: hidden;
     animation:
-        typing 2.5s steps(20, end),
+        typing 0.55s steps(20, end) forwards,
         cursor .6s step-end infinite alternate,
-        animate 5s linear infinite;
+        gradient 5s linear infinite;
     color: transparent;
-    background-image: linear-gradient(to left, 	#7289da, #3498db, #b9b9b9);
+    background-image: linear-gradient(to left, #7289da, #3498db, #b9b9b9);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-background-size: 500%;
     background-size: 500%;
-}s
-
-@keyframes cursor {
-    50% { border-color: transparent; }
 }
 
 @keyframes typing {
@@ -40,8 +36,13 @@ body {
     to { width: 100% }
 }
 
-@keyframes animate {
+@keyframes cursor {
+    50% { border-color: transparent; }
+}
+
+@keyframes gradient {
     0% { background-position: 0 100%; }
-    50% { background-position: 100% 0%; }
+    50% { background-position: 100% 0; }
     100% { background-position: 0 100%; }
 }
+
