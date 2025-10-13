@@ -9,9 +9,9 @@ def load_css(file_path):
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 # --- CSS ปุ่ม ---
-button_css = Path(__file__).parent / "button_style.css"
+button_css = Path(__file__).parent / "button2_style.css"
 load_css(button_css)
-css_file = Path(__file__).parent / "style.css"
+css_file = Path(__file__).parent / "style2.css"
 load_css(css_file)
 
 # --- Animation พิมพ์ + สี gradiant ---
