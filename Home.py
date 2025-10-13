@@ -1,5 +1,6 @@
 import streamlit as st
 import datetime
+import time
 from datetime import date
 from streamlit_gsheets import GSheetsConnection
 from pathlib import Path
@@ -45,12 +46,18 @@ st.write("This program helps you calculate your income, expenses, and remaining 
 st.write("---")
 
 # --- CLOCK ---
+
+# --- CLOCK PLACEHOLDER ---
+clock_placeholder = st.empty()
+st.write("---")
+
 st.markdown('<div id="Home"></div>', unsafe_allow_html=True)
 current_time = datetime.datetime.now().strftime("%H:%M:%S")
 current_date = datetime.datetime.now().strftime("%D")
-st.markdown(f"### 🗓️ Current date: {current_date} | ⏱️ Current time: {current_time}")
-st.write("---")
-
+clock_placeholder.markdown(f"### 🗓️ Current date: {current_date} | ⏱️ Current time: {current_time}")
+# st.write("---")
+time.sleep(0.5) #มี Delay ของ St.rerun เลยต้อง Sleep น้อยกว่า 1 วิ
+st.rerun()
 
 # --- ใช้ column จัดตำแหน่งปุ่ม login ---
 col1, col2, col3 = st.columns([1, 1, 1])
