@@ -1,0 +1,45 @@
+/* Center the entire button container */
+div.stButton {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 40px auto !important;
+    width: 100% !important;
+}
+
+div.stButton > button {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    width: 250px !important;
+    height: 60px !important;
+    background-color: #fff !important;
+    color: #3c4043 !important;
+    font-weight: 800 !important;
+    font-size: 18px !important;
+    border: 1px solid #dadce0 !important;
+    border-radius: 8px !important;
+    padding: 12px 24px 12px 60px !important; /* More padding on left for logo */
+    cursor: pointer !important;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15) !important;
+    transition: all 0.2s ease !important;
+    background-image: url('https://www.svgrepo.com/show/475656/google-color.svg');
+    background-repeat: no-repeat;
+    background-size: 24px 24px;
+    background-position: 24px center; /* Adjusted position */
+    text-align: center !important;
+}
+
+/* Remove the extra margin since we're using padding now */
+div.stButton > button span {
+    flex: 1 !important;
+    text-align: center !important;
+    margin-left: 0 !important; /* Reset margin */
+}
+
+/* Hover effect */
+div.stButton > button:hover {
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2) !important;
+    transform: translateY(-2px) !important;
+}
