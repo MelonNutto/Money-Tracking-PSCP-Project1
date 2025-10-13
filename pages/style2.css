@@ -1,0 +1,39 @@
+body {
+    background: #0e1117;
+    margin: 0;
+    padding: 0;
+    color: white;
+    text-align: center;
+}
+
+.container {
+    display: inline-block;
+    margin-top: 40px;
+}
+
+.text {
+    font-size: 6em;
+    letter-spacing: 10px;
+    font-family: 'Blippo', fantasy;
+    white-space: nowrap;
+    animation: gradient 3s ease-in-out infinite;
+    color: transparent;
+    background-image: linear-gradient(to left, #7289da, #3498db, #b9b9b9);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-background-size: 500%;
+    background-size: 500%;
+}
+
+@keyframes gradient {
+    0% { background-position: 0 100%; }
+    50% { background-position: 100% 0; }
+    100% { background-position: 0 100%; }
+}
+
+@keyframes zoomIn {
+    to {
+        transform: scale(1);
+    }
+}
+

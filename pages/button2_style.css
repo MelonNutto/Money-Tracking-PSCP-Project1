@@ -1,0 +1,14 @@
+div.stButton > button:first-child {
+    background-color: #262730;
+    color: white;
+    border-radius: 999px;
+    padding: 0rem 1rem;
+    font-weight: 900;
+    border: 1px solid white;
+    transition: 0.3s;
+}
+div.stButton > button:hover {
+    background-color: white;
+    color: black;
+    transform: translateY(-2px);
+}
