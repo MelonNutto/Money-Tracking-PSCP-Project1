@@ -23,12 +23,18 @@ st.markdown("""
 st.write("---")
 
 # --- CLOCK ---
+
+# --- CLOCK PLACEHOLDER ---
+clock_placeholder = st.empty()
+st.write("---")
+
 st.markdown('<div id="Home"></div>', unsafe_allow_html=True)
 current_time = datetime.datetime.now().strftime("%H:%M:%S")
 current_date = datetime.datetime.now().strftime("%D")
-st.markdown(f"### 🗓️ Current date: {current_date} | ⏱️ Current time: {current_time}")
-st.write("---")
-
+clock_placeholder.markdown(f"### 🗓️ Current date: {current_date} | ⏱️ Current time: {current_time}")
+# st.write("---")
+time.sleep(0.5) #มี Delay ของ St.rerun เลยต้อง Sleep น้อยกว่า 1 วิ
+st.rerun()
 # --- INPUTS ---
 st.write("")
 date_select = st.date_input("Select your date", format="DD/MM/YYYY")
