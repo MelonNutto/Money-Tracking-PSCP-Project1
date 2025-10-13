@@ -4,6 +4,7 @@ from datetime import date
 from streamlit_gsheets import GSheetsConnection
 from pathlib import Path
 from urllib.parse import urlencode
+import pandas as pd
 
 # --- GG SHEET ---
 st.title("📊 DATA TABLE")
@@ -15,7 +16,7 @@ url = "https://docs.google.com/spreadsheets/d/1r-Bk-wYsJV3WePfOC5XSTqFeeyOwnybpq
 @st.cache_data(ttl=60)  # ไว้เคลียร์ cache กัน bug
 def load_sheet_data(spreadsheet_url):
     conn = st.connection("gsheets", type=GSheetsConnection)
-    return conn.read(spreadsheet=spreadsheet_url, usecols=[0, 1, 2])
+    return conn.read(spreadsheet=spreadsheet_url, usecols=range(4))
 
 data = load_sheet_data(url)
 st.dataframe(data, use_container_width=True)
