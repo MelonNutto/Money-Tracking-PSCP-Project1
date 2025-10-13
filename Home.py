@@ -9,6 +9,14 @@ from urllib.parse import urlencode
 # --- SIDEBAR ---
 
 # --- auth ---
+# CLIENT_ID = "1077781080123-eo31kh01rlbfv96uddmcdkjqmr8n4a37.apps.googleusercontent.com"
+# CLIENT_SECRET = "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"
+# REDIRECT_URI = "http://localhost:8501"
+# 
+# AUTHORIZATION_ENDPOINT = "https://accounts.google.com/o/oauth2/auth"
+# TOKEN_ENDPOINT = "https://oauth2.googleapis.com/token"
+# USERINFO_ENDPOINT = "https://openidconnect.googleapis.com/v1/userinfo"
+# ---- WIP ----
 
 # --- PAGE CONFIG ---
 st.set_page_config(page_title="Money Tracker", layout="centered")
