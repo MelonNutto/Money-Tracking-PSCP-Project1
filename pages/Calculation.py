@@ -35,6 +35,7 @@ clock_placeholder.markdown(f"### 🗓️ Current date: {current_date} | ⏱️ C
 # st.write("---")
 time.sleep(0.5) #มี Delay ของ St.rerun เลยต้อง Sleep น้อยกว่า 1 วิ
 st.rerun()
+
 # --- INPUTS ---
 st.write("")
 date_select = st.date_input("Select your date", format="DD/MM/YYYY")
