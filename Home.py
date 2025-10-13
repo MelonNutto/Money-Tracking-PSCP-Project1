@@ -27,7 +27,7 @@ def load_css(file_path):
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 # --- LOAD CSS ---
-css_file = Path(__file__).parent / "style.css"
+css_file = Path(__file__).parent / "Homestyles.css"
 load_css(css_file)
 button_css = Path(__file__).parent / "button_style.css"
 load_css(button_css)
