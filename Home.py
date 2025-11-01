@@ -30,6 +30,8 @@ st.write("---")
 # --- CLOCK ---
 count = st_autorefresh(interval=1000, key="clock_refresh")
 clock_placeholder = st.empty()
+st.write("")
+st.write("")
 st.write("---")
 
 current_time = datetime.datetime.now().strftime("%H:%M:%S")
