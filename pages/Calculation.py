@@ -2,11 +2,18 @@ import streamlit as st
 import datetime
 import time
 from pathlib import Path
+import pandas as pd
+from streamlit_gsheets import GSheetsConnection
+import streamlit as st
 
 # --- โหลดไฟล์ CSS มาใส่ในโค้ด Python ---
 def load_css(file_path):
     with open(file_path) as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+# --- Load Database
+conn = st.connection("gsheets", type=GSheetsConnection)
+exist_data = conn.read(worksheet="Expenses", usecols=list(range(3)), ttl=5)
 
 # --- CSS ปุ่ม ---
 button_css = Path(__file__).parent / "button2_style.css"
@@ -22,30 +29,30 @@ st.markdown("""
 """, unsafe_allow_html=True)
 st.write("---")
 
-# --- CLOCK ---
-
-# --- CLOCK PLACEHOLDER ---
-clock_placeholder = st.empty()
-st.write("---")
-
-st.markdown('<div id="Home"></div>', unsafe_allow_html=True)
-current_time = datetime.datetime.now().strftime("%H:%M:%S")
-current_date = datetime.datetime.now().strftime("%D")
-clock_placeholder.markdown(f"### 🗓️ Current date: {current_date} | ⏱️ Current time: {current_time}")
-# st.write("---")
-time.sleep(0.5) #มี Delay ของ St.rerun เลยต้อง Sleep น้อยกว่า 1 วิ
-st.rerun()
-
 # --- INPUTS ---
 st.write("")
-date_select = st.date_input("Select your date", format="DD/MM/YYYY")
-income = st.number_input("Enter your total income", min_value=0.0, step=100.0)
-expense = st.number_input("Enter your total expenses", min_value=0.0, step=100.0)
+with st.form("Data"):
+    date_select = st.date_input("Select your date", format="DD/MM/YYYY")
+    income = st.number_input("Enter your total income", min_value=0.0, step=100.0)
+    expense = st.number_input("Enter your total expenses", min_value=0.0, step=100.0)
 
+    submit = st.form_submit_button("Calculate")
 # --- CALCULATION ---
 st.write("")
-if st.button("Calculate"):
+if submit:
     balance = income - expense
+    new_data = pd.DataFrame([{
+        'Date': date_select,
+        "Income": income,
+        "Expense": expense,
+        "Net": balance
+    }])
+
+    updated = pd.concat([exist_data, new_data])
+    conn.update(worksheet="Expenses", data=updated)
+    st.success("Saved")
+
+
     st.write("")
     if balance > 0:
         st.write("")
@@ -53,4 +60,4 @@ if st.button("Calculate"):
     else:
         st.write("")
         st.error(f"❌ Your remaining balance is: **${balance:,.2f}**")
-st.write("---")
+    st.write("---")

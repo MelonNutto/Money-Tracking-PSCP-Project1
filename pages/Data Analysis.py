@@ -10,13 +10,13 @@ import pandas as pd
 st.title("📊 DATA TABLE")
 st.write("---")
 st.write("")
-url = "https://docs.google.com/spreadsheets/d/1r-Bk-wYsJV3WePfOC5XSTqFeeyOwnybpqVWupEBRvHA/edit?usp=sharing"
 
 # ไว้แก้บัค gg spreadsheet
-@st.cache_data(ttl=60)  # ไว้เคลียร์ cache กัน bug
-def load_sheet_data(spreadsheet_url):
+@st.cache_data(ttl=5)  # ไว้เคลียร์ cache กัน bug
+def load_sheet_data(): 
     conn = st.connection("gsheets", type=GSheetsConnection)
-    return conn.read(spreadsheet=spreadsheet_url, usecols=range(4))
+    a = conn.read(worksheet="Expenses", usecols=range(3), ttl=5)
+    return a
 
-data = load_sheet_data(url)
+data = load_sheet_data()
 st.dataframe(data, use_container_width=True)
