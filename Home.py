@@ -1,41 +1,23 @@
 import streamlit as st
 import datetime
-import time
 from datetime import date
 from streamlit_gsheets import GSheetsConnection
 from pathlib import Path
-from urllib.parse import urlencode
+from streamlit_autorefresh import st_autorefresh
 
-
-# --- SIDEBAR ---
-
-# --- auth ---
-# CLIENT_ID = "1077781080123-eo31kh01rlbfv96uddmcdkjqmr8n4a37.apps.googleusercontent.com"
-# CLIENT_SECRET = "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"
-# REDIRECT_URI = "http://localhost:8501"
-# 
-# AUTHORIZATION_ENDPOINT = "https://accounts.google.com/o/oauth2/auth"
-# TOKEN_ENDPOINT = "https://oauth2.googleapis.com/token"
-# USERINFO_ENDPOINT = "https://openidconnect.googleapis.com/v1/userinfo"
-# ---- WIP ----
-
-# --- PAGE CONFIG ---
 st.set_page_config(page_title="Money Tracker", layout="centered")
 
-# --- โหลดไฟล์ CSS มาใส่ในโค้ด Python ---
+# --- โหลดไฟล์ css ---
 def load_css(file_path):
     with open(file_path) as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-# --- LOAD CSS ---
 css_file = Path(__file__).parent / "Homestyles.css"
 load_css(css_file)
 button_css = Path(__file__).parent / "button_style.css"
 load_css(button_css)
-google_css = Path(__file__).parent / "google_button.css"
-load_css(google_css)
 
-# --- Animation พิมพ์ + สี gradiant ---
+# --- โหลด css มาใช้กับ Money Tracker ---
 st.markdown("""
 <div class="container">
     <div class="text">Money Tracker</div>
@@ -46,22 +28,31 @@ st.write("This program helps you calculate your income, expenses, and remaining 
 st.write("---")
 
 # --- CLOCK ---
-
-# --- CLOCK PLACEHOLDER ---
+count = st_autorefresh(interval=1000, key="clock_refresh")
 clock_placeholder = st.empty()
 st.write("---")
 
-st.markdown('<div id="Home"></div>', unsafe_allow_html=True)
 current_time = datetime.datetime.now().strftime("%H:%M:%S")
 current_date = datetime.datetime.now().strftime("%D")
 clock_placeholder.markdown(f"### 🗓️ Current date: {current_date} | ⏱️ Current time: {current_time}")
-# st.write("---")
-time.sleep(0.5) #มี Delay ของ St.rerun เลยต้อง Sleep น้อยกว่า 1 วิ
-st.rerun()
 
-# --- ใช้ column จัดตำแหน่งปุ่ม login ---
-col1, col2, col3 = st.columns([1, 1, 1])
+# --- GG Sheet Input ---
+st.subheader("🔗 Connect your Google Sheet")
+st.write("")
 
-with col2:
-    if st.button("Login with Google"):
-        st.login("google")
+if 'sheet_url' not in st.session_state:
+    st.session_state.sheet_url = ""
+
+sheet_url = st.text_input(
+    "Enter your Google Sheets URL:",
+    placeholder="Paste your Google Sheets link here...",
+    value=st.session_state.sheet_url
+)
+
+if sheet_url:
+    st.session_state.sheet_url = sheet_url
+    try:
+        conn = st.connection("gsheets", type=GSheetsConnection)
+        st.success("✅ Connected successfully!")
+    except Exception as e:
+        st.error(f"❌ Failed to connect: {e}")
