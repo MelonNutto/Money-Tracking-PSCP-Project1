@@ -1,6 +1,4 @@
 import streamlit as st
-import datetime
-import time
 from pathlib import Path
 import pandas as pd
 from streamlit_gsheets import GSheetsConnection
@@ -13,7 +11,7 @@ def load_css(file_path):
 
 # --- Load Database
 conn = st.connection("gsheets", type=GSheetsConnection)
-exist_data = conn.read(worksheet="Expenses", usecols=list(range(3)), ttl=5)
+exist_data = conn.read(worksheet="Expenses", usecols=list(range(4)), ttl=5)
 
 # --- CSS ปุ่ม ---
 button_css = Path(__file__).parent / "button2_style.css"
